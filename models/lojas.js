@@ -12,5 +12,5 @@ const lojaSchema = new mongoose.Schema({
   destaque: { type: Boolean, default: false }
 });
 
-module.exports = mongoose.model('loja', lojaSchema);
+module.exports = mongoose.model('lojas', lojaSchema);
 

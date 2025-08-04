@@ -21,6 +21,7 @@
       position: sticky;
       top: 0;
       z-index: 999;
+      flex-wrap: wrap;
     }
 
     header h1 {
@@ -28,9 +29,15 @@
       font-size: 24px;
     }
 
+    nav {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
     nav a {
       color: white;
-      margin-left: 20px;
       text-decoration: none;
       font-weight: bold;
     }
@@ -45,6 +52,8 @@
       justify-content: center;
       color: white;
       text-shadow: 1px 1px 3px black;
+      text-align: center;
+      padding: 0 15px;
     }
 
     .banner h2 {
@@ -74,7 +83,8 @@
 
     .card {
       background-color: white;
-      width: 300px;
+      width: 100%;
+      max-width: 300px;
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       overflow: hidden;
@@ -112,38 +122,29 @@
     .card-content p {
       font-size: 14px;
       color: #333;
-      max-height: 40px;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .botao1 {
+    .botao1, .botao {
       display: inline-block;
       margin: 10px 5px 0;
       padding: 8px 16px;
       border-radius: 20px;
-      background: linear-gradient(135deg, #25d366, #128c7e);
       color: white;
       text-decoration: none;
       font-size: 14px;
     }
 
-    .botao1:hover {
-      opacity: 0.9;
+    .botao1 {
+      background: linear-gradient(135deg, #25d366, #128c7e);
     }
 
     .botao {
-      display: inline-block;
-      margin: 10px 5px 0;
-      padding: 8px 16px;
-      border-radius: 20px;
       background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
-      color: white;
-      text-decoration: none;
-      font-size: 14px;
     }
 
-    .botao:hover {
+    .botao:hover, .botao1:hover {
       opacity: 0.9;
     }
 
@@ -155,7 +156,6 @@
       border-radius: 8px;
     }
 
-    /* Divisória entre seções */
     .divisoria {
       width: 100%;
       height: 5px;
@@ -170,6 +170,44 @@
       text-align: center;
       padding: 30px 20px;
       margin-top: 50px;
+    }
+
+    /* RESPONSIVIDADE */
+    @media (max-width: 768px) {
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      nav {
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .banner {
+        height: 250px;
+      }
+
+      .banner h2 {
+        font-size: 24px;
+        padding: 15px;
+      }
+
+      .section {
+        padding: 40px 20px;
+      }
+
+      .cards {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .mapa {
+        height: 150px;
+      }
     }
   </style>
 </head>
