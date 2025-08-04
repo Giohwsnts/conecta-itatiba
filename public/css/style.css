@@ -1,0 +1,141 @@
+/* Reset e base */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f4f7fb;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #005baa;
+}
+
+h1, h2 {
+  color: #005baa;
+}
+
+/* Cabeçalho */
+header {
+  background-color: #005baa;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+nav a {
+  margin: 0 10px;
+  color: white;
+  font-weight: bold;
+}
+
+/* Principal */
+main {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.05);
+}
+
+form input,
+form textarea,
+form button,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+form button,
+.botao {
+      display: inline-block;
+      margin: 10px 5px 0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: #005baa;
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+}
+
+form button:hover,
+.botao:hover {
+  background-color: #004080;
+}
+
+.botao-home {
+  background: linear-gradient(135deg, #01233a, #02558b);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: bold;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 999;
+}
+
+.botao-home:hover {
+  opacity: 0.9;
+}
+
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 15px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+button {
+  margin-right: 8px;
+}
+
+footer {
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+  background-color: #005baa;
+  color: white;
+}
+
+.banner {
+  background-image: url('/uploads/banner.jpg');
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-shadow: 1px 1px 3px black;
+}
+
+.editar {
+  background-color: #007bff;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.editar:hover {
+  background-color: #0056b3;
+}
+

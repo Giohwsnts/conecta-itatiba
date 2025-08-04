@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title><%= loja.nome %> - Conheça Itatiba</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4ff;
+      padding: 20px;
+      color: #004aad;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    img {
+      max-width: 100%;
+      max-height: 250px;
+      object-fit: contain;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      display: inline-block;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      margin: 10px 5px;
+    }
+    .btn-whatsapp {
+      background: linear-gradient(45deg, #25D366, #128C7E);
+    }
+    .btn-instagram {
+      background: linear-gradient(45deg, #833AB4, #E1306C, #F77737);
+    }
+    .btn-map {
+      background: linear-gradient(45deg, #004aad, #003080);
+    }
+    .btn-home {
+      background: linear-gradient(45deg, #01233a, #01375c, #02558b);
+    }
+    .btn:hover {
+      opacity: 0.9;
+    }
+  </style>
+    <a href="/" class="btn btn-home">Home</a>
+</head>
+<body>
+  <div class="container">
+    <img src="/uploads/<%= loja.logo %>" alt="<%= loja.nome %>">
+    <h1><%= loja.nome %></h1>
+    <p><strong>CNPJ:</strong> <%= loja.cnpj %></p>
+    <p><strong>Descrição:</strong> <%= loja.descricao || 'Sem descrição' %></p>
+    <p><strong>Telefone:</strong> <%= loja.telefone || 'Não informado' %></p>
+    <p><strong>Endereço:</strong> <%= loja.endereco || 'Não informado' %></p>
+
+    <% if (loja.telefone) { 
+      const numeroLimpo = loja.telefone.replace(/\D/g, '');
+      const mensagem = encodeURIComponent("Olá! Vim pelo Conheça-Itatiba.");
+    %>
+      <a href="https://wa.me/55<%= loja.telefone.replace(/\D/g,'') %>?text=Olá!%20Vim%20pelo%20Conheça-Itatiba.%20Me%20interessei%20na%20sua%20loja." 
+        target="_blank" class="btn btn-whatsapp" rel="noopener noreferrer">WhatsApp</a>
+    <% } %>
+
+    <% if (loja.instagram) { %>
+      <a href="https://instagram.com/<%= loja.instagram.replace('@','') %>" 
+         target="_blank" class="btn btn-instagram">Instagram</a>
+    <% } %>
+
+    <% if (loja.endereco) { 
+      const enderecoUrl = encodeURIComponent(loja.endereco + ", Itatiba - SP");
+    %>
+      <a href="https://www.google.com/maps/search/<%= enderecoUrl %>" 
+         target="_blank" class="btn btn-map">Ver no Google Maps</a>
+    <% } %>
+
+  
+  </div>
+</body>
+</html>

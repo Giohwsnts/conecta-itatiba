@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Editar Loja - Conheça Itatiba</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+    }
+    .form-container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 400px;
+    }
+    h1 {
+      color: #004aad;
+      margin-bottom: 25px;
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: bold;
+      color: #333;
+    }
+    input[type="text"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 15px;
+      resize: vertical;
+    }
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #004aad;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #003580;
+    }
+    .cancel-link {
+      display: block;
+      margin-top: 15px;
+      text-align: center;
+      color: #004aad;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .cancel-link:hover {
+      text-decoration: underline;
+    }
+    .logo-preview {
+      display: block;
+      margin-bottom: 15px;
+      max-width: 100%;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h1>Editar Loja</h1>
+    <form action="/admin/editar/<%= loja._id %>" method="POST" enctype="multipart/form-data">
+      <label for="nome">Nome</label>
+      <input type="text" id="nome" name="nome" value="<%= loja.nome %>" required />
+
+      <label for="cnpj">CNPJ</label>
+      <input type="text" id="cnpj" name="cnpj" value="<%= loja.cnpj %>" required />
+
+      <label for="endereco">Endereço</label>
+      <input type="text" id="endereco" name="endereco" value="<%= loja.endereco %>" required />
+
+      <label for="descricao">Descrição</label>
+      <textarea id="descricao" name="descricao" rows="4"><%= loja.descricao %></textarea>
+
+      <label for="telefone">Telefone</label>
+      <input type="text" id="telefone" name="telefone" value="<%= loja.telefone %>" required />
+
+      <label for="instagram">Instagram</label>
+      <input type="text" id="instagram" name="instagram" value="<%= loja.instagram %>" />
+
+      <label for="logo">Logo (se quiser alterar)</label>
+      <input type="file" id="logo" name="logo" accept="image/*" />
+
+      <% if (loja.logo) { %>
+        <img src="/uploads/<%= loja.logo %>" alt="Logo atual" class="logo-preview" />
+      <% } %>
+
+      <button type="submit">Salvar Alterações</button>
+    </form>
+    <a href="/admin" class="cancel-link">Cancelar e voltar</a>
+  </div>
+</body>
+</html>

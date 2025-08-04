@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Conheça Itatiba</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+    }
+
+    header {
+      background: linear-gradient(135deg, #01233a, #01375c, #02558b);
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .banner {
+      background-image: url('/images/banner.jpg');
+      background-size: cover;
+      background-position: center;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    .banner h2 {
+      font-size: 42px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .section {
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .section h3 {
+      font-size: 32px;
+      margin-bottom: 30px;
+      color: #004aad;
+    }
+
+    .cards {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .card {
+      background-color: white;
+      width: 300px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      padding-bottom: 20px;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    }
+
+    .card img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-top: 15px;
+      border: 3px solid #eee;
+      cursor: pointer;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .card-content h4 {
+      margin: 0 0 10px;
+      color: #004aad;
+    }
+
+    .card-content p {
+      font-size: 14px;
+      color: #333;
+      max-height: 40px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .botao1 {
+      display: inline-block;
+      margin: 10px 5px 0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #25d366, #128c7e);
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .botao1:hover {
+      opacity: 0.9;
+    }
+
+    .botao {
+      display: inline-block;
+      margin: 10px 5px 0;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .botao:hover {
+      opacity: 0.9;
+    }
+
+    .mapa {
+      width: 100%;
+      height: 180px;
+      border: none;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+
+    /* Divisória entre seções */
+    .divisoria {
+      width: 100%;
+      height: 5px;
+      margin: 60px 0;
+      background: linear-gradient(135deg, #01233a, #02558b);
+      border-radius: 8px;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #01233a, #01375c, #02558b);
+      color: white;
+      text-align: center;
+      padding: 30px 20px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Conheça Itatiba</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/cadastre">Cadastre sua loja gratuitamente!</a>
+      <a href="/login">Login</a>
+    </nav>
+  </header>
+
+  <div class="banner">
+    <h2>Descubra as melhores lojas e serviços em Itatiba</h2>
+  </div>
+
+  <section class="section">
+    <h3>Destaques da Cidade</h3>
+    <div class="cards">
+      <% const destaques = lojas.filter(loja => loja.destaque && loja.status === 'aprovado'); %>
+      <% if (destaques.length === 0) { %>
+        <p>Nenhuma loja em destaque aprovada ainda.</p>
+      <% } else { %>
+        <% destaques.forEach(loja => { %>
+          <div class="card">
+            <a href="/loja/<%= loja._id %>">
+              <img src="/uploads/<%= loja.logo %>" alt="<%= loja.nome %>">
+            </a>
+            <div class="card-content">
+              <h4><%= loja.nome %></h4>
+              <p><%= loja.descricao.length > 60 ? loja.descricao.substring(0, 60) + '...' : loja.descricao %></p>
+
+              <% if (loja.telefone && loja.telefone.trim() !== '') { 
+                   const telefoneFormatado = loja.telefone.replace(/\D/g, '');
+              %>
+                <a class="botao1" href="https://wa.me/55<%= telefoneFormatado %>" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              <% } %>
+
+              <% if (loja.instagram && loja.instagram.trim() !== '') { 
+                   const instagramUser = loja.instagram.replace('@', '').trim();
+              %>
+                <a class="botao" href="https://instagram.com/<%= instagramUser %>" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <% } %>
+
+              <% if (loja.latitude && loja.longitude) { %>
+                <iframe
+                  class="mapa"
+                  src="https://maps.google.com/maps?q=<%= loja.latitude %>,<%= loja.longitude %>&z=15&output=embed"
+                  allowfullscreen
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+
+    <div class="divisoria"></div>
+
+    <h3>Outras Lojas</h3>
+    <div class="cards">
+      <% const outras = lojas.filter(loja => !loja.destaque && loja.status === 'aprovado'); %>
+      <% if (outras.length === 0) { %>
+        <p>Não há outras lojas aprovadas no momento.</p>
+      <% } else { %>
+        <% outras.forEach(loja => { %>
+          <div class="card">
+            <a href="/loja/<%= loja._id %>">
+              <img src="/uploads/<%= loja.logo %>" alt="<%= loja.nome %>">
+            </a>
+            <div class="card-content">
+              <h4><%= loja.nome %></h4>
+              <p><%= loja.descricao.length > 60 ? loja.descricao.substring(0, 60) + '...' : loja.descricao %></p>
+
+              <% if (loja.telefone && loja.telefone.trim() !== '') { 
+                   const telefoneFormatado = loja.telefone.replace(/\D/g, '');
+              %>
+                <a class="botao1" href="https://wa.me/55<%= telefoneFormatado %>" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+              <% } %>
+
+              <% if (loja.instagram && loja.instagram.trim() !== '') { 
+                   const instagramUser = loja.instagram.replace('@', '').trim();
+              %>
+                <a class="botao" href="https://instagram.com/<%= instagramUser %>" target="_blank" rel="noopener noreferrer">Instagram</a>
+              <% } %>
+
+              <% if (loja.latitude && loja.longitude) { %>
+                <iframe
+                  class="mapa"
+                  src="https://maps.google.com/maps?q=<%= loja.latitude %>,<%= loja.longitude %>&z=15&output=embed"
+                  allowfullscreen
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+              <% } %>
+            </div>
+          </div>
+        <% }) %>
+      <% } %>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Conheça Itatiba - Todos os direitos reservados - By CodeOne</p>
+  </footer>
+</body>
+</html>

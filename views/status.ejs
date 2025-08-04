@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Consultar Status - Conheça Itatiba</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Consultar Status da Loja</h1>
+    <nav><a href="/">Home</a></nav>
+  </header>
+
+  <main>
+    <form action="/status" method="POST">
+      <label for="documento">Digite seu CPF ou CNPJ:</label><br />
+      <input type="text" id="documento" name="documento" placeholder="CPF ou CNPJ" required /><br /><br />
+      <button type="submit" class="botao">Consultar Status</button>
+    </form>
+
+    <% if (error) { %>
+      <p style="color:red; margin-top:1em;"><%= error %></p>
+    <% } %>
+
+    <% if (loja) { %>
+      <section style="margin-top:2em; border: 1px solid #ccc; padding: 1em; border-radius: 5px;">
+        <h2><%= loja.nome %></h2>
+        <p><strong>Status atual:</strong> <%= loja.status %></p>
+        <% if (loja.descricao) { %>
+          <p><strong>Descrição:</strong> <%= loja.descricao %></p>
+        <% } %>
+      </section>
+    <% } %>
+  </main>
+
+  <footer>
+    <p>© 2025 - Conheça Itatiba - By CodeOne</p>
+  </footer>
+</body>
+</html>

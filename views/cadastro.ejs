@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro de Loja - Conheça Itatiba</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <header>
+    <h1>Cadastro de Loja</h1>
+    <nav>
+      <a href="/">Home</a>
+    </nav>
+  </header>
+
+  <main>
+    <form action="/cadastro" method="POST" enctype="multipart/form-data">
+      <label for="nome">Nome da loja*:</label>
+      <input type="text" id="nome" name="nome" required />
+
+      <label for="cnpj">CNPJ ou CPF*:</label>
+      <input type="text" id="cnpj" name="cnpj" required />
+
+      <label for="endereco">Endereço da loja (para exibir no mapa)*:</label>
+      <input
+        type="text"
+        id="endereco"
+        name="endereco"
+        required
+        placeholder="Ex: Rua da Felicidade, 404, Itatiba - SP"
+      />
+
+      <label for="descricao">Descrição da loja:</label>
+      <textarea
+        id="descricao"
+        name="descricao"
+        placeholder="Esta é a hora de caprichar nos detalhes!!! Faça sua descrição."
+      ></textarea>
+
+      <label for="telefone">Telefone / WhatsApp*:</label>
+      <input type="text" id="telefone" name="telefone" required />
+
+      <label for="instagram">Instagram (opcional):</label>
+      <input
+        type="text"
+        id="instagram"
+        name="instagram"
+        placeholder="@exemplo"
+      />
+
+      <label for="logo">Logo da loja*:</label>
+      <input type="file" id="logo" name="logo" accept="image/*" required />
+
+      <button type="submit">Enviar cadastro</button>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 - Conheça Itatiba - By CodeOne</p>
+  </footer>
+</body>
+</html>
