@@ -227,6 +227,42 @@
 
   <section class="section">
     <h3>Destaques da Cidade</h3>
+
+    <form method="GET" action="/" style="margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 15px; justify-content: center;">
+      <input
+        type="text"
+        name="busca"
+        placeholder="Buscar por nome..."
+        value="<%= busca || '' %>"
+        style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+      />
+
+      <select
+        name="categoria"
+        style="padding: 10px; border-radius: 5px; border: 1px solid #ccc;"
+      >
+        <option value="" <%= !categoria ? 'selected' : '' %>>Todas as categorias</option>
+        <option value="alimentacao" <%= categoria === 'alimentacao' ? 'selected' : '' %>>Alimentação</option>
+        <option value="moda" <%= categoria === 'moda' ? 'selected' : '' %>>Moda e Acessórios</option>
+        <option value="beleza" <%= categoria === 'beleza' ? 'selected' : '' %>>Beleza e Estética</option>
+        <option value="servicos" <%= categoria === 'servicos' ? 'selected' : '' %>>Serviços Gerais</option>
+        <option value="educacao" <%= categoria === 'educacao' ? 'selected' : '' %>>Educação</option>
+        <option value="automotivo" <%= categoria === 'automotivo' ? 'selected' : '' %>>Automotivo</option>
+        <option value="petshop" <%= categoria === 'petshop' ? 'selected' : '' %>>Pet Shop</option>
+        <option value="saude" <%= categoria === 'saude' ? 'selected' : '' %>>Saúde</option>
+        <option value="tecnologia" <%= categoria === 'tecnologia' ? 'selected' : '' %>>Tecnologia</option>
+        <option value="supermercado" <%= categoria === 'supermercado' ? 'selected' : '' %>>Supermercado</option>
+        <option value="decoracao" <%= categoria === 'decoracao' ? 'selected' : '' %>>Decoração</option>
+        <option value="construcao" <%= categoria === 'construcao' ? 'selected' : '' %>>Construção e Reforma</option>
+        <option value="lazer" <%= categoria === 'lazer' ? 'selected' : '' %>>Lazer e Entretenimento</option>
+        <option value="esportes" <%= categoria === 'esportes' ? 'selected' : '' %>>Esportes</option>
+        <option value="financeiro" <%= categoria === 'financeiro' ? 'selected' : '' %>>Serviços Financeiros</option>
+        <option value="outros" <%= categoria === 'outros' ? 'selected' : '' %>>Outros</option>
+      </select>
+
+      <button type="submit" style="padding: 10px 20px; border: none; background-color: #004aad; color: white; border-radius: 5px; cursor: pointer;">Buscar</button>
+    </form>
+
     <div class="cards">
       <% const destaques = lojas.filter(loja => loja.destaque && loja.status === 'aprovado'); %>
       <% if (destaques.length === 0) { %>

@@ -49,11 +49,26 @@ function checkAdminAuth(req, res, next) {
   res.redirect('/login');
 }
 
-/* Rotas públicas */
+/* Rota principal com filtro por nome e categoria */
 app.get('/', async (req, res) => {
   try {
-    const lojas = await Loja.find({ status: 'aprovado' });
-    res.render('index', { lojas });
+    const busca = req.query.busca ? req.query.busca.trim() : '';
+    const categoria = req.query.categoria ? req.query.categoria.trim() : '';
+
+    // Filtro inicial
+    let filtro = { status: 'aprovado' };
+
+    if (busca) {
+      filtro.nome = { $regex: busca, $options: 'i' };
+    }
+
+    if (categoria) {
+      filtro.categoria = categoria;
+    }
+
+    const lojas = await Loja.find(filtro).lean();
+
+    res.render('index', { lojas, busca, categoria });
   } catch (e) {
     console.error(e);
     res.status(500).send('Erro ao carregar lojas');
@@ -66,7 +81,7 @@ app.get('/cadastro', (_, res) => res.render('cadastro'));
 /* Página com todas as lojas aprovadas */
 app.get('/lojas', async (req, res) => {
   try {
-    const lojas = await Loja.find({ status: 'aprovado' });
+    const lojas = await Loja.find({ status: 'aprovado' }).lean();
     res.render('lojas', { lojas });
   } catch (e) {
     console.error(e);
@@ -76,7 +91,7 @@ app.get('/lojas', async (req, res) => {
 
 /* Cadastro loja */
 app.post('/cadastro', upload.single('logo'), async (req, res) => {
-  const { nome, cnpj, endereco, descricao, telefone, instagram } = req.body;
+  const { nome, cnpj, endereco, descricao, telefone, instagram, categoria } = req.body;
   const logo = req.file?.filename;
 
   if (!nome || !cnpj || !endereco || !logo) {
@@ -85,8 +100,16 @@ app.post('/cadastro', upload.single('logo'), async (req, res) => {
 
   try {
     const novaLoja = await Loja.create({
-      nome, cnpj, endereco, descricao, telefone, instagram,
-      logo, status: 'pendente', destaque: false
+      nome,
+      cnpj,
+      endereco,
+      descricao,
+      telefone,
+      instagram,
+      categoria,
+      logo,
+      status: 'pendente',
+      destaque: false
     });
     res.redirect(`/loja-cadastrada?id=${novaLoja._id}`);
   } catch (e) {
@@ -112,7 +135,7 @@ app.post('/status', async (req, res) => {
   }
 
   try {
-    const loja = await Loja.findOne({ cnpj: documento });
+    const loja = await Loja.findOne({ cnpj: documento }).lean();
     if (!loja) {
       return res.render('status', { error: 'Nenhuma loja encontrada.', loja: null });
     }
@@ -148,7 +171,7 @@ app.post('/admin/logout', (req, res) => {
 /* Painel admin */
 app.get('/admin', checkAdminAuth, async (req, res) => {
   try {
-    const lojas = await Loja.find();
+    const lojas = await Loja.find().lean();
     res.render('admin', { lojas });
   } catch (e) {
     console.error(e);
@@ -183,7 +206,7 @@ app.post('/admin/destaque/:id', checkAdminAuth, async (req, res) => {
 /* Editar loja (GET) */
 app.get('/admin/editar/:id', checkAdminAuth, async (req, res) => {
   try {
-    const loja = await Loja.findById(req.params.id);
+    const loja = await Loja.findById(req.params.id).lean();
     if (!loja) return res.status(404).send('Loja não encontrada');
     res.render('editar', { loja });
   } catch (e) {
@@ -194,8 +217,8 @@ app.get('/admin/editar/:id', checkAdminAuth, async (req, res) => {
 
 /* Editar loja (POST) */
 app.post('/admin/editar/:id', checkAdminAuth, upload.single('logo'), async (req, res) => {
-  const { nome, cnpj, endereco, descricao, telefone, instagram, status } = req.body;
-  const updateData = { nome, cnpj, endereco, descricao, telefone, instagram, status };
+  const { nome, cnpj, endereco, descricao, telefone, instagram, status, categoria } = req.body;
+  const updateData = { nome, cnpj, endereco, descricao, telefone, instagram, status, categoria };
 
   if (req.file) {
     updateData.logo = req.file.filename;
@@ -224,7 +247,7 @@ app.post('/admin/deletar/:id', checkAdminAuth, async (req, res) => {
 /* Página da loja */
 app.get('/loja/:id', async (req, res) => {
   try {
-    const loja = await Loja.findById(req.params.id);
+    const loja = await Loja.findById(req.params.id).lean();
     if (!loja || loja.status !== 'aprovado') {
       return res.status(404).send('Loja não encontrada ou não aprovada');
     }

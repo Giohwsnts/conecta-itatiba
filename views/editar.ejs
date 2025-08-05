@@ -32,7 +32,8 @@
     }
     input[type="text"],
     input[type="file"],
-    textarea {
+    textarea,
+    select {
       width: 100%;
       padding: 10px 12px;
       margin-bottom: 18px;
@@ -98,9 +99,28 @@
       <label for="instagram">Instagram</label>
       <input type="text" id="instagram" name="instagram" value="<%= loja.instagram %>" />
 
+      <label for="categoria">Categoria</label>
+      <select id="categoria" name="categoria" required>
+        <option value="">Selecione uma categoria</option>
+        <option value="alimentacao" <%= loja.categoria === 'alimentacao' ? 'selected' : '' %>>Alimentação</option>
+        <option value="moda" <%= loja.categoria === 'moda' ? 'selected' : '' %>>Moda e Acessórios</option>
+        <option value="beleza" <%= loja.categoria === 'beleza' ? 'selected' : '' %>>Beleza e Estética</option>
+        <option value="servicos" <%= loja.categoria === 'servicos' ? 'selected' : '' %>>Serviços Gerais</option>
+        <option value="educacao" <%= loja.categoria === 'educacao' ? 'selected' : '' %>>Educação</option>
+        <option value="automotivo" <%= loja.categoria === 'automotivo' ? 'selected' : '' %>>Automotivo</option>
+        <option value="petshop" <%= loja.categoria === 'petshop' ? 'selected' : '' %>>Pet Shop</option>
+        <option value="saude" <%= loja.categoria === 'saude' ? 'selected' : '' %>>Saúde</option>
+        <option value="tecnologia" <%= loja.categoria === 'tecnologia' ? 'selected' : '' %>>Tecnologia</option>
+        <option value="supermercado" <%= loja.categoria === 'supermercado' ? 'selected' : '' %>>Supermercado</option>
+        <option value="decoracao" <%= loja.categoria === 'decoracao' ? 'selected' : '' %>>Decoração</option>
+        <option value="construcao" <%= loja.categoria === 'construcao' ? 'selected' : '' %>>Construção e Reforma</option>
+        <option value="lazer" <%= loja.categoria === 'lazer' ? 'selected' : '' %>>Lazer e Entretenimento</option>
+        <option value="esportes" <%= loja.categoria === 'esportes' ? 'selected' : '' %>>Esportes</option>
+        <option value="financeiro" <%= loja.categoria === 'financeiro' ? 'selected' : '' %>>Serviços Financeiros</option>
+        <option value="outros" <%= loja.categoria === 'outros' ? 'selected' : '' %>>Outros</option>
+
       <label for="logo">Logo (se quiser alterar)</label>
       <input type="file" id="logo" name="logo" accept="image/*" />
-
       <% if (loja.logo) { %>
         <img src="/uploads/<%= loja.logo %>" alt="Logo atual" class="logo-preview" />
       <% } %>
