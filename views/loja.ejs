@@ -65,9 +65,9 @@
 
     <% if (loja.telefone) { 
       const numeroLimpo = loja.telefone.replace(/\D/g, '');
-      const mensagem = encodeURIComponent("Olá! Vim pelo Conheça-Itatiba.");
+      const mensagem = encodeURIComponent("Olá! Vim pelo Conecta-Itatiba.");
     %>
-      <a href="https://wa.me/55<%= loja.telefone.replace(/\D/g,'') %>?text=Olá!%20Vim%20pelo%20Conheça-Itatiba.%20Me%20interessei%20na%20sua%20loja." 
+      <a href="https://wa.me/55<%= loja.telefone.replace(/\D/g,'') %>?text=Olá!%20Vim%20pelo%20Conecta-Itatiba.%20Me%20interessei%20na%20sua%20loja." 
         target="_blank" class="btn btn-whatsapp" rel="noopener noreferrer">WhatsApp</a>
     <% } %>
 
