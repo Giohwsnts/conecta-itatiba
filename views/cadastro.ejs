@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Cadastro de Loja - Conheça Itatiba</title>
   <link rel="stylesheet" href="/css/style.css" />
 </head>
@@ -16,48 +16,94 @@
 
   <main>
     <form action="/cadastro" method="POST" enctype="multipart/form-data">
-      <label for="nome">Nome da loja*:</label>
-      <input type="text" id="nome" name="nome" required />
+      <div>
+        <label for="nome">Nome da loja*:</label>
+        <input type="text" id="nome" name="nome" required />
+      </div>
 
-      <label for="cnpj">CNPJ ou CPF*:</label>
-      <input type="text" id="cnpj" name="cnpj" required />
+      <div>
+        <label for="cnpj">CNPJ ou CPF*:</label>
+        <input type="text" id="cnpj" name="cnpj" required />
+      </div>
 
-      <label for="endereco">Endereço da loja (para exibir no mapa)*:</label>
-      <input
-        type="text"
-        id="endereco"
-        name="endereco"
-        required
-        placeholder="Ex: Rua da Felicidade, 404, Itatiba - SP"
-      />
+      <div>
+        <label for="endereco">Endereço da loja*:</label>
+        <input
+          type="text"
+          id="endereco"
+          name="endereco"
+          placeholder="Ex: Rua da Felicidade, 404, Itatiba - SP"
+          required
+        />
+      </div>
 
-      <label for="descricao">Descrição da loja:</label>
-      <textarea
-        id="descricao"
-        name="descricao"
-        placeholder="Esta é a hora de caprichar nos detalhes!!! Faça sua descrição."
-      ></textarea>
+      <div>
+        <label for="categoria">Categoria*:</label>
+        <select name="categoria" id="categoria" required>
+  <option value="" disabled selected>Selecione uma categoria</option>
 
-      <label for="telefone">Telefone / WhatsApp*:</label>
-      <input type="text" id="telefone" name="telefone" required />
+  <!-- Comércio -->
+  <option value="alimentos-bebidas">Alimentos e Bebidas</option>
+  <option value="vestuario-acessorios">Vestuário e Acessórios</option>
+  <option value="eletro-eletronicos">Eletro / Eletrônicos</option>
+  <option value="casa-construcao">Casa e Construção</option>
+  <option value="veiculos-pecas">Veículos e Peças</option>
+  <option value="pets">Pets</option>
+  <option value="papelaria-escritorio">Papelaria e Escritório</option>
+  <option value="outros-comercio">Outros (Comércio)</option>
 
-      <label for="instagram">Instagram (opcional):</label>
-      <input
-        type="text"
-        id="instagram"
-        name="instagram"
-        placeholder="@exemplo"
-      />
+  <!-- Serviços -->
+  <option value="saude-bem-estar">Saúde e Bem-estar</option>
+  <option value="beleza">Beleza</option>
+  <option value="servicos-automotivos">Serviços Automotivos</option>
+  <option value="construcao-civil">Construção Civil</option>
+  <option value="eventos">Eventos</option>
+  <option value="tecnicos-manutencao">Técnicos e Manutenções</option>
+  <option value="educacao-cursos">Educação e Cursos</option>
+  <option value="transporte-logistica">Transporte e Logística</option>
+  <option value="servicos-gerais">Serviços Gerais</option>
+  <option value="juridico-contabil">Jurídico e Contábil</option>
 
-      <label for="logo">Logo da loja*:</label>
-      <input type="file" id="logo" name="logo" accept="image/*" required />
+  <!-- Serviços Empresariais -->
+  <option value="servicos-empresariais">Serviços Empresariais</option>
 
-      <button type="submit">Enviar cadastro</button>
+  <!-- Comunitários / Instituições -->
+  <option value="comunitarios-instituicoes">Serviços Públicos / Comunitários</option>
+</select>
+      </div>
+
+      <div>
+        <label for="descricao">Descrição da loja:</label>
+        <textarea
+          id="descricao"
+          name="descricao"
+          placeholder="Esta é a hora de caprichar nos detalhes! Faça uma ótima descrição."
+        ></textarea>
+      </div>
+
+      <div>
+        <label for="telefone">Telefone / WhatsApp*:</label>
+        <input type="text" id="telefone" name="telefone" required />
+      </div>
+
+      <div>
+        <label for="instagram">Instagram (opcional):</label>
+        <input type="text" id="instagram" name="instagram" placeholder="@exemplo" />
+      </div>
+
+      <div>
+        <label for="logo">Logo da loja*:</label>
+        <input type="file" id="logo" name="logo" accept="image/*" required />
+      </div>
+
+      <div>
+        <button type="submit">Enviar cadastro</button>
+      </div>
     </form>
   </main>
 
   <footer>
-    <p>© 2025 - Conheça Itatiba - By CodeOne</p>
+    <p>© 2025 - Conecta Itatiba - By CodeOne</p>
   </footer>
 </body>
 </html>

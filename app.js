@@ -5,7 +5,7 @@ const multer = require('multer');
 const path = require('path');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-const Loja = require('./models/lojas'); // ajuste o caminho se necessário
+const Loja = require('./models/lojas'); // ajuste se necessário
 
 const app = express();
 const PORT = 3000;
@@ -33,7 +33,7 @@ app.use(session({
   secret: 'seu-segredo-super-seguro',
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 60 * 60 * 1000 } // 1 hora
+  cookie: { maxAge: 60 * 60 * 1000 }
 }));
 
 /* Multer upload */
@@ -63,6 +63,17 @@ app.get('/', async (req, res) => {
 app.get('/cadastre', (_, res) => res.render('cadastre'));
 app.get('/cadastro', (_, res) => res.render('cadastro'));
 
+/* Página com todas as lojas aprovadas */
+app.get('/lojas', async (req, res) => {
+  try {
+    const lojas = await Loja.find({ status: 'aprovado' });
+    res.render('lojas', { lojas });
+  } catch (e) {
+    console.error(e);
+    res.status(500).send('Erro ao carregar lista de lojas');
+  }
+});
+
 /* Cadastro loja */
 app.post('/cadastro', upload.single('logo'), async (req, res) => {
   const { nome, cnpj, endereco, descricao, telefone, instagram } = req.body;
@@ -75,8 +86,7 @@ app.post('/cadastro', upload.single('logo'), async (req, res) => {
   try {
     const novaLoja = await Loja.create({
       nome, cnpj, endereco, descricao, telefone, instagram,
-      logo, status: 'pendente',
-      destaque: false
+      logo, status: 'pendente', destaque: false
     });
     res.redirect(`/loja-cadastrada?id=${novaLoja._id}`);
   } catch (e) {
@@ -85,31 +95,27 @@ app.post('/cadastro', upload.single('logo'), async (req, res) => {
   }
 });
 
-/* Tela confirmação cadastro */
 app.get('/loja-cadastrada', (req, res) => {
   const lojaId = req.query.id;
   res.render('loja-cadastrada', { lojaId });
 });
 
-/* Rota para consultar status por CPF/CNPJ (form + resultado) */
+/* Consultar status por CPF/CNPJ */
 app.get('/status', (req, res) => {
   res.render('status', { error: null, loja: null });
 });
 
 app.post('/status', async (req, res) => {
   const documento = req.body.documento?.trim();
-
   if (!documento) {
     return res.render('status', { error: 'Informe o CPF ou CNPJ.', loja: null });
   }
 
   try {
     const loja = await Loja.findOne({ cnpj: documento });
-
     if (!loja) {
-      return res.render('status', { error: 'Nenhuma loja encontrada para o documento informado.', loja: null });
+      return res.render('status', { error: 'Nenhuma loja encontrada.', loja: null });
     }
-
     res.render('status', { error: null, loja });
   } catch (e) {
     console.error(e);
@@ -124,14 +130,8 @@ app.get('/login', (_, res) => {
 
 app.post('/login', async (req, res) => {
   const { user, pass } = req.body;
-
-  if (!user || !pass) {
-    return res.render('login', { error: 'Por favor, preencha usuário e senha.' });
-  }
-
   const isValidUser = user === ADMIN_USER;
   const isValidPass = await bcrypt.compare(pass, ADMIN_PASS_HASH);
-
   if (isValidUser && isValidPass) {
     req.session.isAdmin = true;
     return res.redirect('/admin');
@@ -142,9 +142,7 @@ app.post('/login', async (req, res) => {
 
 /* Logout */
 app.post('/admin/logout', (req, res) => {
-  req.session.destroy(() => {
-    res.redirect('/login');
-  });
+  req.session.destroy(() => res.redirect('/login'));
 });
 
 /* Painel admin */
@@ -169,7 +167,7 @@ app.post('/admin/aprovar/:id', checkAdminAuth, async (req, res) => {
   }
 });
 
-/* Destacar loja (toggle) */
+/* Destacar loja */
 app.post('/admin/destaque/:id', checkAdminAuth, async (req, res) => {
   try {
     const loja = await Loja.findById(req.params.id);
@@ -223,7 +221,7 @@ app.post('/admin/deletar/:id', checkAdminAuth, async (req, res) => {
   }
 });
 
-/* Página da loja individual */
+/* Página da loja */
 app.get('/loja/:id', async (req, res) => {
   try {
     const loja = await Loja.findById(req.params.id);
@@ -237,11 +235,11 @@ app.get('/loja/:id', async (req, res) => {
   }
 });
 
-// Página 404
+/* Página 404 */
 app.use((req, res) => {
-  res.status(404).render("erro", {
+  res.status(404).render('erro', {
     status: 404,
-    mensagem: "Página não encontrada."
+    mensagem: 'Página não encontrada.'
   });
 });
 
